@@ -53,6 +53,15 @@ public class ImageController {
         return "images/image";
     }
 
+
+    @RequestMapping("/images/{id}/{title}")
+    public String showImage(@PathVariable("id") String id, @PathVariable("title") String title, Model model) {
+        Image image = imageService.getImageById(id);
+        model.addAttribute("image", image);
+        model.addAttribute("tags", image.getTags());
+        return "images/image";
+    }
+
     //This controller method is called when the request pattern is of type 'images/upload'
     //The method returns 'images/upload.html' file
     @RequestMapping("/images/upload")
