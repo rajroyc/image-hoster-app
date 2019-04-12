@@ -3,6 +3,7 @@ package ImageHoster.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //@Entity annotation specifies that the corresponding class is a JPA entity
 @Entity
@@ -79,6 +80,19 @@ public class User {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 
