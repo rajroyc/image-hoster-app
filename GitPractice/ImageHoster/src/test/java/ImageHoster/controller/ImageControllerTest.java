@@ -1,4 +1,4 @@
-/*
+
 package ImageHoster.controller;
 
 import ImageHoster.model.Image;
@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -80,11 +81,16 @@ public class ImageControllerTest {
         session = new MockHttpSession();
         session.setAttribute("loggeduser", user);
 
+        Tag tag = new Tag();
+        tag.setId(1);
+        tag.setName("portrait");
+
         Image image = new Image();
         image.setId(1);
         image.setTitle("new");
         image.setDescription("This image is for testing purpose");
         image.setUser(user);
+        image.setTags(Arrays.asList(tag));
 
         Mockito.when(imageService.getImage(Mockito.anyInt())).thenReturn(image);
 
@@ -214,10 +220,10 @@ public class ImageControllerTest {
         userProfile.setEmailAddress("p@gmail.com");
         userProfile.setFullName("Prerna");
         userProfile.setMobileNumber("9876543210");
-        user.setProfile(userProfile1);
-        user.setId(2);
-        user.setUsername("Prerna");
-        user.setPassword("password1@@");
+        user1.setProfile(userProfile1);
+        user1.setId(2);
+        user1.setUsername("Prerna");
+        user1.setPassword("password1@@");
 
         Image image = new Image();
         image.setId(1);
@@ -289,10 +295,10 @@ public class ImageControllerTest {
         userProfile.setEmailAddress("p@gmail.com");
         userProfile.setFullName("Prerna");
         userProfile.setMobileNumber("9876543210");
-        user.setProfile(userProfile1);
-        user.setId(2);
-        user.setUsername("Prerna");
-        user.setPassword("password1@@");
+        user1.setProfile(userProfile1);
+        user1.setId(2);
+        user1.setUsername("Prerna");
+        user1.setPassword("password1@@");
 
         Image image = new Image();
         image.setId(1);
@@ -310,4 +316,4 @@ public class ImageControllerTest {
     }
 }
 
-*/
+

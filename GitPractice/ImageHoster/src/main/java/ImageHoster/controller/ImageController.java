@@ -55,8 +55,8 @@ public class ImageController {
 
     //This method is called to view the details of a specific image by passing the image ID and title
     @RequestMapping("/images/{id}/{title}")
-    public String showImage(@PathVariable("id") String id, @PathVariable("title") String title, Model model) {
-        Image image = imageService.getImageById(id);
+    public String showImage(@PathVariable("id") Integer id, @PathVariable("title") String title, Model model) {
+        Image image = imageService.getImage(id);
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
         return "images/image";
