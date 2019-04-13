@@ -63,6 +63,19 @@ public class UserControllerTest {
         this.mockMvc.perform(post("/users/registration")
                 .flashAttr("user", user))
                 .andExpect(model().attribute("passwordTypeError", equalTo("Password must contain atleast 1 alphabet, 1 number & 1 special character")));
+
+        user.setPassword("pass1word");
+
+        this.mockMvc.perform(post("/users/registration")
+                .flashAttr("user", user))
+                .andExpect(model().attribute("passwordTypeError", equalTo("Password must contain atleast 1 alphabet, 1 number & 1 special character")));
+
+        user.setPassword("1#67854");
+
+        this.mockMvc.perform(post("/users/registration")
+                .flashAttr("user", user))
+                .andExpect(model().attribute("passwordTypeError", equalTo("Password must contain atleast 1 alphabet, 1 number & 1 special character")));
+
     }
 
     //This test checks the controller logic for user signup when user fills the form and send the POST request to the server with the correct password type and checks whether the logic returns the html file 'users/login.html'
@@ -79,10 +92,11 @@ public class UserControllerTest {
         user.setUsername("Abhi");
         user.setPassword("password1@");
 
+        Mockito.when(userService.isStrongPassword(Mockito.anyString())).thenReturn(true);
 
         this.mockMvc.perform(post("/users/registration")
                 .flashAttr("user", user))
-                .andExpect(view().name("users/login"))
+                .andExpect(view().name("/users/login"))
                 .andExpect(content().string(containsString("Please Login:")));
     }
 
