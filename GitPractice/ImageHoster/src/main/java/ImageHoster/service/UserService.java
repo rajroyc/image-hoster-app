@@ -2,8 +2,11 @@ package ImageHoster.service;
 
 import ImageHoster.model.User;
 import ImageHoster.repository.UserRepository;
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -30,6 +33,13 @@ public class UserService {
         } else {
             return null;
         }
+    }
+
+    public boolean isStrongPassword(String password) {
+
+        return password.matches("^.*[a-zA-Z]+.*$")
+                && password.matches("^.*[0-9]+.*$")
+                && password.matches("^.*[^a-zA-Z0-9]+.*$");
     }
 
 }
