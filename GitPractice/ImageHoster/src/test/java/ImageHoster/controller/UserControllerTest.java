@@ -46,7 +46,7 @@ public class UserControllerTest {
 
 
     //This test checks the controller logic for user signup when user fills the form and send the POST request to the server but the password type is wrong and checks whether the Model type object contains the desired attribute with desired value
-/*    @Test
+    @Test
     public void signupWithWrongPasswordType() throws Exception {
         User user = new User();
         UserProfile userProfile = new UserProfile();
@@ -61,13 +61,25 @@ public class UserControllerTest {
 
 
         this.mockMvc.perform(post("/users/registration")
-                .flashAttr("user", user)
-        )
+                .flashAttr("user", user))
                 .andExpect(model().attribute("passwordTypeError", equalTo("Password must contain atleast 1 alphabet, 1 number & 1 special character")));
-    }*/
+
+        user.setPassword("pass1word");
+
+        this.mockMvc.perform(post("/users/registration")
+                .flashAttr("user", user))
+                .andExpect(model().attribute("passwordTypeError", equalTo("Password must contain atleast 1 alphabet, 1 number & 1 special character")));
+
+        user.setPassword("1#67854");
+
+        this.mockMvc.perform(post("/users/registration")
+                .flashAttr("user", user))
+                .andExpect(model().attribute("passwordTypeError", equalTo("Password must contain atleast 1 alphabet, 1 number & 1 special character")));
+
+    }
 
     //This test checks the controller logic for user signup when user fills the form and send the POST request to the server with the correct password type and checks whether the logic returns the html file 'users/login.html'
-/*    @Test
+    @Test
     public void signupWithCorrectPasswordType() throws Exception {
         User user = new User();
         UserProfile userProfile = new UserProfile();
@@ -80,13 +92,13 @@ public class UserControllerTest {
         user.setUsername("Abhi");
         user.setPassword("password1@");
 
+        Mockito.when(userService.isStrongPassword(Mockito.anyString())).thenReturn(true);
 
         this.mockMvc.perform(post("/users/registration")
-                .flashAttr("user", user)
-        )
-                .andExpect(view().name("users/login"))
+                .flashAttr("user", user))
+                .andExpect(view().name("/users/login"))
                 .andExpect(content().string(containsString("Please Login:")));
-    }*/
+    }
 
     //This test checks the controller logic for user signin when user requests for a signin form where he can enter the username and password and checks whether the logic returns the html file 'users/login.html'
     @Test
