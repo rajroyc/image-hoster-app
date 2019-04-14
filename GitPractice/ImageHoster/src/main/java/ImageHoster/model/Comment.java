@@ -23,7 +23,7 @@ public class Comment {
     @Column(name = "text", columnDefinition = "TEXT")
     private String text;
 
-    @Column(name = "createdDate")
+    @Column(name = "created_Date")
     private LocalDate createdDate;
 
     //The 'comments' table is mapped to 'users' table with Many:One mapping
@@ -43,13 +43,6 @@ public class Comment {
     // the primary key in 'images' table will be 'image_id'
     @JoinColumn(name = "image_id")
     private Image image;
-
-    public Comment(String text, LocalDate createdDate, User user, Image image) {
-        this.text = text;
-        this.createdDate = createdDate;
-        this.user = user;
-        this.image = image;
-    }
 
     public Integer getId() {
         return id;
